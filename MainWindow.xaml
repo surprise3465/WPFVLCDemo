@@ -1,0 +1,324 @@
+﻿<Window
+    x:Class="VLCPlayer.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:VLCPlayer"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="MainWindow"
+    Width="902.857"
+    Height="609.428"
+    mc:Ignorable="d">
+    <Window.Resources>
+
+        <LinearGradientBrush x:Key="SliderBackground" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#59ccfc" />
+            <GradientStop Offset="0.5" Color="#00b3fe" />
+            <GradientStop Offset="1" Color="#59ccfc" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="SliderThumb" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#FFD9D3E8" />
+            <!--<GradientStop Offset="1" Color="#dfdfdf"/>-->
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="SliderText" StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Offset="0" Color="#7cce45" />
+            <GradientStop Offset="1" Color="#4ea017" />
+        </LinearGradientBrush>
+
+        <!--  Slider模板  -->
+        <Style x:Key="Slider_RepeatButton" TargetType="RepeatButton">
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="{StaticResource SliderBackground}" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Slider_RepeatButton1" TargetType="RepeatButton">
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RepeatButton">
+                        <Border Background="Transparent" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Slider_Thumb" TargetType="Thumb">
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{StaticResource SliderBackground}" />
+                            <Border
+                                Grid.ColumnSpan="2"
+                                Width="15"
+                                Background="{StaticResource SliderThumb}"
+                                CornerRadius="4">
+                                <!--<TextBlock Text="||" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="Slider_CustomStyle" TargetType="Slider">
+            <Setter Property="Focusable" Value="false" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid>
+                            <!--<Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>-->
+                            <Grid.Effect>
+                                <DropShadowEffect BlurRadius="10" ShadowDepth="1" />
+                            </Grid.Effect>
+                            <!--<Border HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="1,1,0,1" Background="{StaticResource SliderText}" Width="80" CornerRadius="8,0,0,8"/>-->
+                            <!--<Border Grid.Column="2" HorizontalAlignment="Right" BorderBrush="Gray" BorderThickness="0,1,1,1" Background="{StaticResource SliderText}" Width="40" CornerRadius="0,8,8,0"/>-->
+                            <!--<TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent},Path=Tag}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14"/>-->
+                            <!--<TextBlock Grid.Column="2" Text="{Binding ElementName=PART_Track,Path=Value,StringFormat=\{0:N0\}}" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" DataContext="{Binding}" />-->
+                            <Border
+                                Grid.Column="1"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                CornerRadius="8,0,0,8">
+                                <Track Name="PART_Track" Grid.Column="1">
+                                    <Track.DecreaseRepeatButton>
+                                        <RepeatButton Command="Slider.DecreaseLarge" Style="{StaticResource Slider_RepeatButton}" />
+                                    </Track.DecreaseRepeatButton>
+                                    <Track.IncreaseRepeatButton>
+                                        <RepeatButton Command="Slider.IncreaseLarge" Style="{StaticResource Slider_RepeatButton1}" />
+                                    </Track.IncreaseRepeatButton>
+                                    <Track.Thumb>
+                                        <Thumb Style="{StaticResource Slider_Thumb}" />
+                                    </Track.Thumb>
+                                </Track>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <LinearGradientBrush x:Key="LinearGradientBlueBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Offset="0" Color="#FF5EAEFF" />
+            <GradientStop Offset="1" Color="#FF074CC0" />
+        </LinearGradientBrush>
+
+        <SolidColorBrush x:Key="MyBtnBorderColor" Color="#FF074CC0" />
+
+        <SolidColorBrush x:Key="MyBtnHoverBackgroundColor" Color="#FF5EAEFF" />
+
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource LinearGradientBlueBackground}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource MyBtnBorderColor}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3,3,3,3"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource MyBtnHoverBackgroundColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="28" />
+                <RowDefinition />
+                <RowDefinition Height="20" />
+                <RowDefinition Height="200" />
+            </Grid.RowDefinitions>
+            <Menu
+                x:Name="menu"
+                Grid.Row="0"
+                Background="Black"
+                FontWeight="Bold"
+                Foreground="White">
+                <MenuItem Header="_File">
+                    <MenuItem
+                        Width="200"
+                        Foreground="Black"
+                        Header="_Open" />
+                    <MenuItem
+                        Width="200"
+                        Foreground="Black"
+                        Header="_Save" />
+                    <Separator Width="145" Foreground="Black" />
+                    <MenuItem
+                        Width="200"
+                        Command="Close"
+                        Foreground="Black"
+                        Header="_Close" />
+                </MenuItem>
+                <MenuItem
+                    Background="Black"
+                    Foreground="White"
+                    Header="_Tools">
+                    <MenuItem
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        Foreground="Black"
+                        Header="_Options" />
+                </MenuItem>
+                <MenuItem
+                    Background="Black"
+                    Foreground="White"
+                    Header="Help">
+                    <MenuItem
+                        Width="145"
+                        HorizontalAlignment="Left"
+                        Foreground="Black"
+                        Header="_About" />
+                </MenuItem>
+            </Menu>
+            <ContentControl Name="ControlContainer" Grid.Row="1" />
+            <Slider
+                x:Name="sliderVideo"
+                Grid.Row="2"
+                Margin="60,0"
+                IsMoveToPointEnabled="True"
+                Maximum="100"
+                MouseLeftButtonUp="sliderVideo_MouseLefButtonUp"
+                Style="{StaticResource Slider_CustomStyle}"
+                Thumb.DragCompleted="sliderVideo_Drag"
+                Value="0" />
+            <Canvas Grid.Row="2" Background="White">
+                <Button
+                    x:Name="openfileBtn"
+                    Canvas.Left="267"
+                    Canvas.Top="158"
+                    Width="75"
+                    Height="32"
+                    Click="openfileBtn_Click"
+                    Content="Open" />
+                <Button
+                    x:Name="palyfileBtn"
+                    Canvas.Left="84"
+                    Canvas.Top="36"
+                    Width="75"
+                    Height="32"
+                    Click="palyfileBtn_Click"
+                    Content="Play" />
+                <Button
+                    x:Name="stopPlayBtn"
+                    Canvas.Left="277"
+                    Canvas.Top="36"
+                    Width="75"
+                    Height="32"
+                    Click="stopPlayBtn_Click"
+                    Content="Stop" />
+                <Button
+                    x:Name="backBtn"
+                    Canvas.Left="372"
+                    Canvas.Top="36"
+                    Width="75"
+                    Height="32"
+                    Click="backBtn_Click"
+                    Content="Back" />
+                <Button
+                    x:Name="forwardBtn"
+                    Canvas.Left="467"
+                    Canvas.Top="36"
+                    Width="75"
+                    Height="32"
+                    Click="forwardBtn_Click"
+                    Content="Forward" />
+                <Slider
+                    x:Name="sliderVolume"
+                    Canvas.Left="639"
+                    Canvas.Top="43"
+                    Width="120"
+                    IsMoveToPointEnabled="True"
+                    Maximum="100"
+                    MouseLeftButtonUp="sliderVolume_MouseLeftButtonUp"
+                    Thumb.DragCompleted="sliderVolume_Drag" />
+                <Label
+                    x:Name="label9"
+                    Canvas.Left="577"
+                    Canvas.Top="39"
+                    Content="Volume"
+                    RenderTransformOrigin="0.211,0.808" />
+                <Button
+                    x:Name="pauseBtn"
+                    Canvas.Left="179"
+                    Canvas.Top="38"
+                    Width="75"
+                    Height="30"
+                    Click="pauseBtn_Click"
+                    Content="Pause" />
+                <TextBox
+                    x:Name="fileNametextBox"
+                    Canvas.Left="359"
+                    Canvas.Top="108"
+                    Width="458"
+                    Height="32"
+                    TextWrapping="Wrap" />
+                <RichTextBox
+                    x:Name="fileListrichTextBox"
+                    Canvas.Left="359"
+                    Canvas.Top="158"
+                    Width="458"
+                    Height="32" />
+                <Button
+                    x:Name="addURLBtn"
+                    Canvas.Left="267"
+                    Canvas.Top="108"
+                    Width="75"
+                    Height="32"
+                    Click="addURLBtn_Click"
+                    Content="AddUrl" />
+            </Canvas>
+            <Label
+                x:Name="totalLength"
+                Grid.Row="2"
+                Width="60"
+                HorizontalAlignment="Right"
+                Content="00:00:00"
+                FontSize="9"
+                RenderTransformOrigin="1.548,0.467" />
+            <Label
+                x:Name="currentTime"
+                Grid.Row="2"
+                Width="60"
+                HorizontalAlignment="Left"
+                Content="00:00:00"
+                FontSize="9" />
+        </Grid>
+    </Grid>
+</Window>
